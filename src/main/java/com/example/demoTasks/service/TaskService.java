@@ -42,6 +42,7 @@ public class TaskService {
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .completed(request.getCompleted())
+                .materials(request.getMaterials())
                 .build();
 
         taskRepository.save(task);

@@ -24,11 +24,13 @@ public class TaskService {
     }
 
     public ResponseEntity<Object> getTaskByName(Task request){
-        ResponseEntity<Object> taskFound = taskRepository.findTaskByTitle(request.getTitle());
+        Task taskFound = taskRepository.findTaskByTitle(request.getTitle());
 
         if(taskFound != null) {
-            Map<String, String> succesfulResponse = new HashMap<>();
+
+            Map<String, Object> succesfulResponse = new HashMap<>();
             succesfulResponse.put("mensaje","tarea encontrada con exito");
+            succesfulResponse.put("data",taskFound);
             return ResponseEntity.ok(succesfulResponse);
         }else {
             Map<String, String> badResponse = new HashMap<>();
@@ -59,6 +61,7 @@ public class TaskService {
                     .title(request.getTitle())
                     .description(request.getDescription())
                     .completed(request.getCompleted())
+                    .materials(request.getMaterials())
                     .build();
 
             taskRepository.save(taskToUpdate);
